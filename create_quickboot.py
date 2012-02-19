@@ -20,11 +20,10 @@ parser = argparse.ArgumentParser(description=desc)
 # parse arguments
 parser.parse_args(sys.argv[1:])
 
-game_name = raw_input("Name of game: ")
-game_loc = raw_input("Location of game: ")
+game_name = raw_input("Name of game (eg Skyrim): ")
+game_loc = raw_input("Location of executable (eg \Game\Skyrim\default.xex): ")
 
 dir_name = game_name
-print game_name + " " + game_loc
 
 # create directory structure
 print "Creating files...",
