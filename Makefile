@@ -1,5 +1,5 @@
 
 clean:
 	@echo 'cleaning...'
-	@rm -rf *.pyc
+	@rm -rf *.pyc *~ xenon/*.pyc xenon/*~
 	@echo 'done'
