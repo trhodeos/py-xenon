@@ -11,7 +11,7 @@ desc = \
 Tool for creating game-on-demand containers for extracted xbox 360 games.
 """
 
-# constants
+# quickboot constants
 data_dir_name = os.path.join("data", "quickboot")
 
 # set up argument parser
@@ -20,13 +20,16 @@ parser = argparse.ArgumentParser(description=desc)
 # parse arguments
 parser.parse_args(sys.argv[1:])
 
+# get game information
 game_name = raw_input("Name of game (eg Skyrim): ")
 game_loc = raw_input("Location of executable (eg \Game\Skyrim\default.xex): ")
 
+# set up output info
 dir_name = game_name
 output_dir_name = os.path.join("Content", "0000000000000000", "DEADBEEF", "00007000")
 output_name = os.path.join(output_dir_name, game_name)
 
+# quickboot xex/config info
 xex_name = os.path.join(dir_name, "default.xex")
 to_be_copied = os.path.join(data_dir_name, "default.xex")
 
@@ -42,7 +45,7 @@ shutil.copy(to_be_copied, xex_name)
 
 # create config file
 config_file = open(config_name, "w")
-config_file.write(game_loc+"\n")
+config_file.write(game_loc + "\n")
 config_file.close()
 print "Done"
 

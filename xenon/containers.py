@@ -1,5 +1,6 @@
 """
-All information used to construct these containers can be found here: http://free60.org/old/Generic_Xbox_360_File_Container.html
+All information used to construct these containers can be found here:
+  - http://free60.org/old/Generic_Xbox_360_File_Container.html
 """
 
 class LiveContainer:
@@ -7,7 +8,7 @@ class LiveContainer:
         self.directory = dir
 
     def set_title(self, title):
-        if (len(title) > 256):
+        if (len(title) >= 256):
             title = title[:256]
         assert(len(title) < 256)
         self.title = title
@@ -31,10 +32,10 @@ class LiveContainer:
 
         # icons
         file.seek(0x1712) # length of big icon
-        file.write("\x00\x00\x00\x00")
+        file.write("\x00\x00\x00\x00") # temporarily 0
 
         file.seek(0x1716) # length of small icon
-        file.write("\x00\x00\x00\x00")
+        file.write("\x00\x00\x00\x00") # temporarily 0
 
 
     def write(self, filename):
@@ -45,6 +46,6 @@ class LiveContainer:
         self.write_header(file)
 
         # write content info
-
+        
         # close up shop
         file.close()
