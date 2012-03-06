@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import argparse
+import errno
 import os
 import shutil
 import sys
@@ -11,11 +12,19 @@ desc = \
 Tool for creating game-on-demand containers for extracted xbox 360 games.
 """
 
+def mkdir_p(path):
+    try:
+        os.makedirs(path)
+    except OSError as exc:
+        if exc.errno == errno.EEXIST:
+            pass # do nothing if the directories exist
+        else: raise
+
 # quickboot constants
 data_dir_name = os.path.join("data", "quickboot")
 
 # set up argument parser
-parser = argparse.ArgumentParser(description=desc)
+parser = argparse.ArgumentParser(description = desc)
 
 # parse arguments
 parser.parse_args(sys.argv[1:])
@@ -37,8 +46,8 @@ config_name = os.path.join(dir_name, "config.ini")
 
 print "Creating files...",
 # create directory structure
-os.mkdir(dir_name)
-os.makedirs(output_dir_name)
+mkdir_p(dir_name)
+mkdir_p(output_dir_name)
 
 # copy in default.xex
 shutil.copy(to_be_copied, xex_name)
@@ -53,6 +62,7 @@ print "Done"
 print "Creating container...",
 container = containers.LiveContainer()
 container.set_title(game_name)
+container.set_directory(dir_name)
 container.write(output_name)
 print "Done"
 

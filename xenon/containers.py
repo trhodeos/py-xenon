@@ -3,8 +3,13 @@ All information used to construct these containers can be found here:
   - http://free60.org/old/Generic_Xbox_360_File_Container.html
 """
 
+import os
+
 class LiveContainer:
     def set_directory(self, dir):
+        for root, dirs, files in os.walk(dir):
+            for file in files:
+                pass
         self.directory = dir
 
     def set_title(self, title):
@@ -37,6 +42,8 @@ class LiveContainer:
         file.seek(0x1716) # length of small icon
         file.write("\x00\x00\x00\x00") # temporarily 0
 
+    def write_files(self, file):
+        pass
 
     def write(self, filename):
         # open up the file
@@ -46,6 +53,7 @@ class LiveContainer:
         self.write_header(file)
 
         # write content info
-        
+        self.write_files(file)
+
         # close up shop
         file.close()
